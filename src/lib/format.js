@@ -38,3 +38,5 @@ export function mapsLinks(origin, dest, station) {
   const apple = `https://maps.apple.com/?saddr=${ll(origin)}&daddr=${ll([station.lon, station.lat])}+to:${ll(dest)}&dirflg=d`
   return { google, apple }
 }
+
+export const fmtConsumption = (c) => dec1.format(c)

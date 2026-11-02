@@ -96,6 +96,11 @@ summary::after { content: ' ›'; }
 details[open] summary::after { content: ' ⌄'; }
 details .slider-head { margin-top: 12px; }
 
+.stepper { display: inline-flex; align-items: center; gap: 4px; }
+.stepper button { width: 32px; height: 32px; border: 0; border-radius: 50%; background: var(--fill); color: var(--blue); font-size: 20px; line-height: 1; cursor: pointer; }
+.stepper button:active { opacity: 0.6; }
+.stepper output { min-width: 112px; text-align: center; }
+
 /* Botón principal */
 .primary { display: flex; justify-content: center; align-items: center; gap: 10px; width: 100%; border: 0; border-radius: 16px; padding: 16px; background: var(--blue); color: #fff; font: inherit; font-size: 17px; font-weight: 600; cursor: pointer; transition: opacity 0.15s, transform 0.1s; }
 .primary:active { transform: scale(0.985); }
@@ -116,7 +121,7 @@ details .slider-head { margin-top: 12px; }
 .hero h2 { margin: 12px 0 0; font-size: 22px; letter-spacing: -0.01em; }
 .addr { margin: 4px 0 0; color: var(--text); font-size: 15px; }
 .addr .muted { font-size: 13px; }
-.metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin: 18px 0 0; }
+.metrics { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin: 18px 0 0; }
 .metrics div { background: var(--fill); border-radius: 14px; padding: 10px 10px 11px; min-width: 0; }
 .metrics dt { font-size: 11.5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.03em; color: var(--muted); }
 .metrics dd { margin: 3px 0 0; font-size: 17px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -0.01em; }

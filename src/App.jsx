@@ -4,7 +4,7 @@ import { loadPrices } from './lib/data.js'
 import { getRoute, measureDetours } from './lib/osrm.js'
 import { searchPlaces, reversePlace } from './lib/geocode.js'
 import { candidatesNearRoute, pickCheapest } from './lib/search.js'
-import { ago, fmtKm, fmtMin, fmtMoney, fmtPrice, mapsLinks, titleCase } from './lib/format.js'
+import { ago, fmtConsumption, fmtKm, fmtMin, fmtMoney, fmtPrice, mapsLinks, titleCase } from './lib/format.js'
 import { useSettings } from './lib/settings.js'
 import PlaceInput from './components/PlaceInput.jsx'
 import RouteMap from './components/RouteMap.jsx'
@@ -48,6 +48,8 @@ export default function App() {
       { enableHighAccuracy: true, timeout: 15000, maximumAge: 60000 },
     )
   }
+
+  const setConsumption = (v) => set({ consumption: Math.min(15, Math.max(3, Math.round(v * 10) / 10)) })
 
   const swap = () => set({ origin: s.dest, dest: s.origin })
 
@@ -146,9 +148,13 @@ export default function App() {
             <input id="liters" type="range" min="5" max="100" step="5" value={s.liters} onChange={(e) => set({ liters: Number(e.target.value) })} />
             <div className="slider-head">
               <label htmlFor="cons" className="field-title">Consumo de tu coche</label>
-              <output htmlFor="cons" className="big sm">{String(s.consumption).replace('.', ',')} L/100 km</output>
+              <span className="stepper">
+                <button type="button" aria-label="Bajar 0,1 L/100 km" onClick={() => setConsumption(s.consumption - 0.1)}>−</button>
+                <output htmlFor="cons" className="big sm">{fmtConsumption(s.consumption)} L/100 km</output>
+                <button type="button" aria-label="Subir 0,1 L/100 km" onClick={() => setConsumption(s.consumption + 0.1)}>+</button>
+              </span>
             </div>
-            <input id="cons" type="range" min="3" max="15" step="0.5" value={s.consumption} onChange={(e) => set({ consumption: Number(e.target.value) })} />
+            <input id="cons" type="range" min="3" max="15" step="0.1" value={s.consumption} onChange={(e) => setConsumption(Number(e.target.value))} />
             <p className="hint">Se usan para estimar lo que cuesta de verdad cada opción, contando el combustible del desvío.</p>
           </details>
         </div>
@@ -218,6 +224,7 @@ function Results({ result, selected, selectedId, onSelect, settings: s }) {
           <div><dt>Desvío</dt><dd>+{fmtKm(selected.extraKm)} km<span>+{fmtMin(selected.extraMin)}</span></dd></div>
           <div><dt>Posición</dt><dd>km {Math.round(selected.along)}<span> de {Math.round(route.km)}</span></dd></div>
           <div><dt>{s.liters} L salen a</dt><dd>{fmtMoney(totalCost(selected, s))}</dd></div>
+          <div><dt>100 km cuestan</dt><dd>{fmtMoney(s.consumption * selected.price)}<span>a {fmtConsumption(s.consumption)} L/100 km</span></dd></div>
         </dl>
         {saving >= 0.5 && <p className="saving">Ahorras ≈ {fmtMoney(saving)} en {s.liters} L frente a la media de las gasolineras cercanas a tu ruta.</p>}
 
