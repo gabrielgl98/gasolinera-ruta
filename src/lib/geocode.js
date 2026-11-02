@@ -18,6 +18,7 @@ export async function searchPlaces(query, signal) {
     .filter((f) => !f.properties.countrycode || f.properties.countrycode === 'ES')
     .map((f) => ({ label: label(f.properties), coord: f.geometry.coordinates }))
     .filter((p) => p.label)
+    .filter((p, i, all) => all.findIndex((q) => q.label === p.label) === i)
 }
 
 export async function reversePlace([lon, lat]) {

@@ -141,17 +141,14 @@ details .slider-head { margin-top: 12px; }
 /* Lista */
 .section-title { margin: 8px 4px 8px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); }
 .list { list-style: none; margin: 0; padding: 0; overflow: hidden; }
-.list li + li { border-top: 0.5px solid var(--sep); margin-left: 16px; }
+.list li { margin-left: 16px; }
+.list li + li { border-top: 0.5px solid var(--sep); }
 .list button { display: flex; align-items: center; gap: 12px; width: 100%; border: 0; background: transparent; color: var(--text); font: inherit; text-align: left; padding: 13px 16px 13px 0; cursor: pointer; }
 .list li:first-child button { padding-top: 15px; }
 .list button:active { background: var(--fill); }
 .list button .grow, .list button .right { display: flex; flex-direction: column; gap: 2px; }
 .list .right { text-align: right; align-items: flex-end; }
 .list .muted { font-size: 13px; }
-.list { padding-left: 0; }
-.list li { padding-left: 0; }
-.list button { padding-left: 0; }
-.list li:first-child { margin-left: 16px; }
 
 footer { margin-top: 8px; padding: 0 4px; font-size: 12px; color: var(--muted); text-align: center; }
 

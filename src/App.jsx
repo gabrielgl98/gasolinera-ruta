@@ -9,6 +9,8 @@ import { useSettings } from './lib/settings.js'
 import PlaceInput from './components/PlaceInput.jsx'
 import RouteMap from './components/RouteMap.jsx'
 
+const MAX_OPTIONS = 8
+
 async function resolve(place) {
   if (place.coord) return place
   const found = (await searchPlaces(place.text.trim()))[0]
@@ -83,7 +85,7 @@ export default function App() {
 
       const avg = candidates.length ? candidates.reduce((a, c) => a + c.price, 0) / candidates.length : null
       setResult({
-        route, origin: origin.coord, dest: dest.coord, options, nearby: candidates.length, avg,
+        route, origin: origin.coord, dest: dest.coord, options: options.slice(0, MAX_OPTIONS), nearby: candidates.length, avg,
         fuel: s.fuel, maxDetour: s.maxDetour, updated: data.updated, fecha: data.fecha, stale: data.stale,
       })
       setSelectedId(options[0]?.id ?? null)
@@ -213,7 +215,7 @@ function Results({ result, selected, selectedId, onSelect, settings: s }) {
         </p>
 
         <dl className="metrics">
-          <div><dt>Desvío</dt><dd>+{fmtKm(selected.extraKm)} km<span> · +{fmtMin(selected.extraMin)}</span></dd></div>
+          <div><dt>Desvío</dt><dd>+{fmtKm(selected.extraKm)} km<span>+{fmtMin(selected.extraMin)}</span></dd></div>
           <div><dt>Posición</dt><dd>km {Math.round(selected.along)}<span> de {Math.round(route.km)}</span></dd></div>
           <div><dt>{s.liters} L salen a</dt><dd>{fmtMoney(totalCost(selected, s))}</dd></div>
         </dl>
