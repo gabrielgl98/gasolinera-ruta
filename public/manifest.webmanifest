@@ -1,0 +1,17 @@
+{
+  "name": "Gasolinera en ruta",
+  "short_name": "Gasolinera",
+  "description": "La gasolinera más barata en tu ruta, con desvío máximo configurable.",
+  "lang": "es",
+  "start_url": "/gasolinera-ruta/",
+  "scope": "/gasolinera-ruta/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f2f2f7",
+  "theme_color": "#f2f2f7",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
